@@ -1,0 +1,58 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "node": true,
+    "jasmine": true
+  },
+  "parser": "babel-eslint",
+  "plugins": [
+    "jasmine"
+  ],
+  "extends": [
+    "standard",
+    "plugin:react/recommended",
+    "plugin:jasmine/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "indent": [
+      "error"
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "space-before-function-paren": [
+      "error",
+      {
+        "anonymous": "always",
+        "named": "never"
+      }
+    ],
+    "no-console": "off",
+    "no-tabs": "off",
+    "no-useless-return": "off",
+    "eqeqeq": "off",
+    "react/prop-types": [
+      0
+    ],
+    "react/no-children-prop": 0,
+    "react/jsx-no-comment-textnodes": 0
+  }
+}

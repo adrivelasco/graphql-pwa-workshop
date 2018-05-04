@@ -1,0 +1,35 @@
+import { ApolloClient } from 'apollo-client';
+import { from } from 'apollo-link';
+import { onError } from 'apollo-link-error';
+import { HttpLink } from 'apollo-link-http';
+
+import createCache from './createCache';
+
+const link = from([
+  onError(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors) {
+      graphQLErrors.map(({ message, locations, path }) =>
+        console.warn(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
+      );
+    }
+    if (networkError) {
+      console.warn(`[Network error]: ${networkError}`);
+    }
+  }),
+
+  new HttpLink({
+    uri: '/graphql',
+    credentials: 'include'
+  })
+]);
+
+const cache = createCache();
+
+export default function createApolloClient() {
+  return new ApolloClient({
+    link,
+    cache: cache.restore(window.APOLLO_STATE),
+    queryDeduplication: true,
+    connectToDevTools: true
+  });
+}

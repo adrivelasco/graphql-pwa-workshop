@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import MuiButton from 'material-ui/Button';
 import { withStyles } from 'material-ui/styles';
 
-import styles from './styles';
+import styles from './Button.styles';
 
 const Button = ({ children, classes }) => (
   <MuiButton

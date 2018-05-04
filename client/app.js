@@ -14,12 +14,20 @@ import { green, red } from 'material-ui/colors';
 // Import root app
 import App from './components/App';
 
+// Apollo
+import { ApolloProvider } from 'react-apollo';
+import createApolloClient from './core/createApolloClient.client';
+
 import configureStore from './store/configureStore';
 import history from './history';
 
 const initialState = window.APP_STATE;
 const store = configureStore(initialState, history);
 const mountNode = document.getElementById('app');
+
+// ApolloClient
+
+const apolloClient = createApolloClient();
 
 // Create a theme instance.
 const theme = createMuiTheme({
@@ -32,13 +40,15 @@ const theme = createMuiTheme({
 
 // Rendering client side
 ReactDOM.hydrate(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <MuiThemeProvider theme={theme}>
-        <App />
-      </MuiThemeProvider>
-    </ConnectedRouter>
-  </Provider>,
+  <ApolloProvider client={apolloClient}>
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <MuiThemeProvider theme={theme}>
+          <App />
+        </MuiThemeProvider>
+      </ConnectedRouter>
+    </Provider>
+  </ApolloProvider>,
   mountNode
 );
 

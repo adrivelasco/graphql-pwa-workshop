@@ -10,15 +10,22 @@ const morgan = require('morgan');
 const routes = require('./routes');
 const config = require('../config');
 
+// GraphQL - Apollo
+const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
+const schema = require('../graphql/schema');
+
 // Initializing Express App
 const app = express();
+
+// Mode
+const isDebug = config.env === 'development';
 
 // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
 // user agent is not known.
 global.navigator = global.navigator || {};
 global.navigator.userAgent = global.navigator.userAgent || 'all';
 
-if (config.env === 'development') {
+if (isDebug) {
   app.use(morgan('dev'));
   app.enable('trust proxy');
 }
@@ -30,6 +37,11 @@ app.use(sanitized());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compression());
+
+// GraphQL
+app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
+
+if (isDebug) app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 // Fallback
 app.use(history());

@@ -8,6 +8,7 @@ class Html extends React.Component {
     description: PropTypes.string.isRequired,
     favicon: PropTypes.string.isRequired,
     state: PropTypes.object.isRequired,
+    apolloState: PropTypes.object.isRequired,
     children: PropTypes.string.isRequired
   };
 
@@ -25,7 +26,8 @@ class Html extends React.Component {
       state,
       scripts,
       styles,
-      jss
+      jss,
+      apolloState
     } = this.props;
     return (
       <html className="no-js" lang="es">
@@ -47,7 +49,10 @@ class Html extends React.Component {
           <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
           <style id="jss-server-side">{jss}</style>
           {/* <!-- Scripts tags --> */}
-          <script dangerouslySetInnerHTML={{ __html: `window.APP_STATE=${serialize(state)}` }} />
+          <script dangerouslySetInnerHTML={{ __html: `
+            window.APP_STATE=${serialize(state)};
+            window.APOLLO_STATE=${serialize(apolloState)};
+          ` }} />
           {scripts.map(script => <script key={script} src={script} />)}
         </body>
       </html>

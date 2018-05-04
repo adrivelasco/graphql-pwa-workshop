@@ -1,16 +1,6 @@
 'use strict';
 
-const isDebug = process.env.NODE_ENV === 'development';
-
-// Hook for statics files such as images or css files
-const cssModulesHook = require('css-modules-require-hook');
-cssModulesHook({
-  extensions: ['.css'],
-  camelCase: 'dashes',
-  generateScopedName: isDebug
-    ? '[name]-[local]-[hash:base64:5]'
-    : '[hash:base64:5]'
-});
+require('./cssModulesHook');
 
 // React Universal tools and components
 const React = require('react');
@@ -20,11 +10,15 @@ const renderToString = ReactDOM.renderToString;
 const { Provider } = require('react-redux');
 const { StaticRouter } = require('react-router');
 
+// ApolloClient
+const { ApolloProvider } = require('react-apollo');
+const createApolloClient = require('../../../client/core/createApolloClient.server').default;
+const schema = require('../../graphql/schema');
+
 // Material-UI SSR Setup
-const { SheetsRegistry } = require('react-jss/lib/jss');
+const initMaterialUi = require('./initMaterialUi');
 const { JssProvider } = require('react-jss');
-const { MuiThemeProvider, createMuiTheme, createGenerateClassName } = require('material-ui/styles');
-const { green, red } = require('material-ui/colors');
+const { MuiThemeProvider } = require('material-ui/styles');
 
 const configureStore = require('../../../client/store/configureStore').default;
 const App = require('../../../client/components/App').default;
@@ -38,7 +32,19 @@ const assets = require('../../../build/assets.json');
 const serverSideRender = (req, res, next) => {
   try {
     const store = configureStore({});
-    const context = { store };
+
+    const apolloClient = createApolloClient({
+      schema,
+      rootValue: { request: req }
+    });
+
+    const context = {
+      // You can access redux through react-redux connect
+      store,
+      storeSubscription: null,
+      // Apollo Client for use with react-apollo
+      client: apolloClient
+    };
 
     let status = 200;
     if (context.url) {
@@ -49,35 +55,26 @@ const serverSideRender = (req, res, next) => {
       status = 404;
     }
 
-    // MUI Server Side
-    // Create a sheetsRegistry instance.
-    const sheetsRegistry = new SheetsRegistry();
-
-    // Create a theme instance.
-    const theme = createMuiTheme({
-      palette: {
-        primary: green,
-        accent: red,
-        type: 'light'
-      }
-    });
-
-    const generateClassName = createGenerateClassName();
+    const { sheetsRegistry, generateClassName, theme } = initMaterialUi();
 
     const app = renderToString(
       createElement(
-        Provider,
-        { store },
+        ApolloProvider,
+        { client: apolloClient },
         createElement(
-          StaticRouter,
-          { location: req.originalUrl, context },
+          Provider,
+          { store },
           createElement(
-            JssProvider,
-            { registry: sheetsRegistry, generateClassName },
+            StaticRouter,
+            { location: req.originalUrl, context },
             createElement(
-              MuiThemeProvider,
-              { theme, sheetsManager: new Map() },
-              createElement(App, {})
+              JssProvider,
+              { registry: sheetsRegistry, generateClassName },
+              createElement(
+                MuiThemeProvider,
+                { theme, sheetsManager: new Map() },
+                createElement(App, {})
+              )
             )
           )
         )
@@ -97,6 +94,7 @@ const serverSideRender = (req, res, next) => {
         styles: [assets.client.css],
         scripts: [assets.vendor.js, assets.client.js],
         state: store.getState(),
+        apolloState: context.client.extract(),
         jss: jss,
         children: app
       })

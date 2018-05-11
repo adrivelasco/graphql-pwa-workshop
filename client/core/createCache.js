@@ -10,5 +10,6 @@ function dataIdFromObject(obj) {
 }
 
 export default function createCache() {
+  // https://www.apollographql.com/docs/react/basics/caching.html#configuration
   return new InMemoryCache({ dataIdFromObject });
 }

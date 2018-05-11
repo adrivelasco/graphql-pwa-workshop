@@ -1,2 +1,3 @@
-# AV-TWEET
-Universal React Next.js + Redux AntDesign UI + GraphQL
+# GraphxList
+
+Universal React App with GraphQL API 

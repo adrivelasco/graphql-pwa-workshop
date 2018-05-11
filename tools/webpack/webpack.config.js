@@ -8,8 +8,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const AssetsPlugin = require('assets-webpack-plugin');
 const pkg = require('../../package.json');
 
-const isDebug = !process.argv.includes('--env.production');
-const isVerbose = process.argv.includes('--verbose');
+const isProduction = process.argv.includes('--env.production');
 
 const reScript = /\.(js|jsx|mjs)$/;
 const reStyle = /\.(css|less|styl|scss|sass|sss)$/;
@@ -24,7 +23,7 @@ const config = {
 
   target: 'web',
 
-  mode: isDebug ? 'development' : 'production',
+  mode: isProduction ? 'production' : 'development',
 
   entry: {
     client: ['babel-polyfill', './client/app.js']
@@ -37,10 +36,10 @@ const config = {
   output: {
     path: path.resolve(__dirname, '../../build/static'),
     publicPath: '/static/',
-    filename: isDebug
+    filename: !isProduction
       ? 'js/[name].js'
       : 'js/[name].[hash:8].js',
-    chunkFilename: isDebug
+    chunkFilename: !isProduction
       ? 'js/[name].js'
       : 'js/[name].[hash:8].js'
   },
@@ -60,14 +59,14 @@ const config = {
   plugins: [
     // Extract all CSS files and compile it on a single file
     new ExtractTextPlugin({
-      filename: isDebug ? '[name].css' : '[name].[contenthash:base64:8].css',
+      filename: !isProduction ? '[name].css' : '[name].[contenthash:base64:8].css',
       publicPath: '/static/css',
       allChunks: true
     }),
 
     // Define free variables
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
+      'process.env.NODE_ENV': !isProduction ? '"development"' : '"production"',
       'process.env.BROWSER': true
     }),
 
@@ -78,12 +77,8 @@ const config = {
       prettyPrint: true
     }),
 
-    ...(isDebug
+    ...(isProduction
       ? [
-        new webpack.NoEmitOnErrorsPlugin(),
-        new webpack.NamedModulesPlugin()
-      ]
-      : [
         // Decrease script evaluation time
         new webpack.optimize.ModuleConcatenationPlugin(),
 
@@ -92,7 +87,7 @@ const config = {
           sourceMap: true,
           compress: {
             screw_ie8: true,
-            warnings: isVerbose,
+            warnings: false,
             unused: true,
             dead_code: true
           },
@@ -104,7 +99,12 @@ const config = {
             screw_ie8: true
           }
         })
-      ])
+      ]
+      : [
+        new webpack.NoEmitOnErrorsPlugin(),
+        new webpack.NamedModulesPlugin()
+      ]
+    )
   ],
   module: {
     // Make missing exports an error instead of warning
@@ -119,29 +119,40 @@ const config = {
         ],
         loader: 'babel-loader',
         options: {
-          cacheDirectory: isDebug,
+          // https://github.com/babel/babel-loader#options
+          cacheDirectory: isProduction,
+
+          // https://babeljs.io/docs/usage/options/
           babelrc: false,
           presets: [
+            // A Babel preset that can automatically determine the Babel plugins and polyfills
+            // https://github.com/babel/babel-preset-env
             [
               'env',
               {
                 targets: {
                   browsers: pkg.browserslist,
-                  forceAllTransforms: !isDebug
+                  forceAllTransforms: !isProduction
                 },
                 modules: false,
                 useBuiltIns: false,
                 debug: false
               }
             ],
+            // Experimental ECMAScript proposals
+            // https://babeljs.io/docs/plugins/#presets-stage-x-experimental-presets-
             'stage-0',
+            // Flow
+            // https://github.com/babel/babel/tree/master/packages/babel-preset-flow
             'flow',
+            // JSX
+            // https://github.com/babel/babel/tree/master/packages/babel-preset-react
             'react'
           ],
           plugins: [
             'transform-decorators-legacy',
-            ...(isDebug ? ['transform-react-jsx-source'] : []),
-            ...(isDebug ? ['transform-react-jsx-self'] : [])
+            ...(!isProduction ? ['transform-react-jsx-source'] : []),
+            ...(!isProduction ? ['transform-react-jsx-self'] : [])
           ]
         }
       },
@@ -159,14 +170,16 @@ const config = {
                 {
                   loader: 'css-loader',
                   options: {
+                    // CSS Loader https://github.com/webpack/css-loader
                     importLoaders: 1,
-                    sourceMap: isDebug,
+                    sourceMap: !isProduction,
                     camelCase: 'dashes',
+                    // CSS Modules https://github.com/css-modules/css-modules
                     modules: true,
-                    localIdentName: isDebug
+                    localIdentName: !isProduction
                       ? '[name]-[local]-[hash:base64:5]'
                       : '[hash:base64:5]',
-                    minimize: !isDebug,
+                    minimize: isProduction,
                     discardComments: { removeAll: true }
                   }
                 },
@@ -231,11 +244,12 @@ const config = {
   },
 
   // Don't attempt to continue if there are any errors.
-  bail: !isDebug,
-  cache: isDebug,
+  // https://webpack.js.org/configuration/devtool/#devtool
+  bail: isProduction,
+  cache: !isProduction,
 
   // Choose a developer tool to enhance debugging
-  devtool: isDebug ? 'cheap-module-inline-source-map' : 'source-map',
+  devtool: isProduction ? 'source-map' : 'cheap-module-inline-source-map',
 
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
@@ -247,16 +261,16 @@ const config = {
 
   // Specify what bundle information gets displayed
   stats: {
-    cached: isVerbose,
-    cachedAssets: isVerbose,
-    chunks: isVerbose,
-    chunkModules: isVerbose,
+    cached: false,
+    cachedAssets: false,
+    chunks: false,
+    chunkModules: false,
     colors: true,
-    hash: isVerbose,
-    modules: isVerbose,
-    reasons: isDebug,
+    hash: false,
+    modules: false,
+    reasons: !isProduction,
     timings: true,
-    version: isVerbose
+    version: false
   }
 };
 

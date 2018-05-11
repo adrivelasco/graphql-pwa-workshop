@@ -1,62 +1,57 @@
 import React from 'react';
-import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
-import Card, { CardContent } from 'material-ui/Card';
+import PropTypes from 'prop-types';
+import { graphql, compose } from 'react-apollo';
+import { withStyles } from 'material-ui/styles';
+import List, { ListItem, ListItemText } from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 
-class Home extends React.Component {
-  render() {
-    const GET_TOP_STORIES = gql`
-      {
-        topStories(limit: 5) {
-          id,
-          title,
-          by {
-            id
-          },
-          timeISO
-        }
-      }
-    `;
+import { topStoriesQuery } from '../../queries/topStoriesQuery';
+import styles from './Home.styles';
 
+class Home extends React.Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+    data: PropTypes.shape({
+      loading: PropTypes.bool,
+      error: PropTypes.string,
+      topStories: PropTypes.array
+    })
+  };
+
+  render() {
+    const { data, classes } = this.props;
     return (
       <div>
-        <Typography variant="title">
-          Last 5 Top Stories
-        </Typography>
-        <br />
-        <br />
-        <Query query={GET_TOP_STORIES}>
-          {({ loading, error, data }) => {
-            if (loading) {
-              return 'Loading...';
-            }
-            if (error) {
-              return `Error! ${error.message}`;
-            }
-            return (
-              <div>
-                {data.topStories.map((story, i) => {
-                  return (
-                    <Card key={story.id}>
-                      <CardContent>
-                        <Typography variant="subheading" component="h2">
-                          {story.title}
-                        </Typography>
-                        <Typography color="textSecondary">
-                          @{story.by.id}
-                        </Typography>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
-              </div>
-            );
-          }}
-        </Query>
+        <div className={classes.title}>
+          <Typography variant="title">Last 5 Top Stories</Typography>
+          <Typography variant="subheading">from @HackerNews</Typography>
+        </div>
+        <div>
+          {data.loading && <Typography>Loading...</Typography>}
+
+          {data.error && <Typography>Error {data.error.message}</Typography>}
+
+          {data.topStories && data.topStories.length > 0 && (
+            <List classes={{ root: classes.list }}>
+              {data.topStories.map((story, i) => (
+                <ListItem key={story.id}>
+                  <ListItemText
+                    primary={story.title}
+                    secondary={`@${story.by.id}`}
+                  />
+                </ListItem>
+              ))}
+            </List>
+          )}
+        </div>
       </div>
     );
   }
 }
 
-export default Home;
+const HomeWithData = compose(
+  graphql(topStoriesQuery),
+  withStyles(styles)
+)(Home);
+
+export default HomeWithData;

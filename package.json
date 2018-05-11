@@ -28,6 +28,7 @@
     "lint": "eslint --fix ."
   },
   "dependencies": {
+    "@material-ui/icons": "^1.0.0-beta.43",
     "apollo-boost": "^0.1.5",
     "apollo-link-http": "^1.5.4",
     "apollo-link-schema": "^1.1.0",

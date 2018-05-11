@@ -2,6 +2,7 @@ import React from 'react';
 import { withStyles } from 'material-ui/styles';
 
 import AppBar from '../AppBar';
+import Container from '../Container';
 import styles from './Layout.styles';
 
 class Layout extends React.PureComponent {
@@ -9,9 +10,11 @@ class Layout extends React.PureComponent {
     const { children, classes } = this.props;
     return (
       <div className={classes.root}>
-        <AppBar title="AV Tweetx" />
+        <AppBar title="GraphxList" />
         <div className={classes.content}>
-          {children}
+          <Container>
+            {children}
+          </Container>
         </div>
       </div>
     );

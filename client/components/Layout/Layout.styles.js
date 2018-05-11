@@ -3,10 +3,8 @@ const styles = {
     fontSize: '16px'
   },
   content: {
-    maxWidth: '1024px',
-    margin: '0 auto',
-    position: 'relative',
-    padding: '20px'
+    padding: '25px 0',
+    position: 'relative'
   }
 };
 

@@ -1,7 +1,7 @@
 // Client Configuration
 const config = {
   app: {
-    title: 'AV Tweetx',
+    title: 'GraphxList',
     description: 'Universal React App'
   }
 };

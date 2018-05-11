@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import FastClick from 'fastclick';
-import { ConnectedRouter } from 'react-router-redux';
+import { Router } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import { green, red } from 'material-ui/colors';
@@ -31,11 +31,11 @@ const apolloClient = createApolloClient();
 // https://reactjs.org/docs/react-dom.html#hydrate
 ReactDOM.hydrate(
   <ApolloProvider client={apolloClient}>
-    <ConnectedRouter history={history}>
+    <Router history={history}>
       <MuiThemeProvider theme={theme}>
         <App />
       </MuiThemeProvider>
-    </ConnectedRouter>
+    </Router>
   </ApolloProvider>,
   mountNode
 );

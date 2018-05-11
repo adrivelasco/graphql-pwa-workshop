@@ -34,11 +34,14 @@ class MuiTheme {
     });
 
     this.generateClassName = createGenerateClassName();
+    this.grabCss = this.grabCss.bind(this);
   }
 
   grabCss() {
-    // Grab the CSS from our sheetsRegistry.
-    return this.sheetsRegistry.toString();
+    if (this.sheetsRegistry) {
+      // Grab the CSS from our sheetsRegistry.
+      return this.sheetsRegistry.toString();
+    }
   }
 }
 

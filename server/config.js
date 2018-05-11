@@ -14,12 +14,6 @@ const config = {
     // API URL to be used in the server-side code
     serverUrl:
       process.env.API_SERVER_URL || `http://localhost:${process.env.PORT || 3000}`
-  },
-
-  cache: {
-    host: process.env.REDIS_HOST || 'localhost',
-    port: process.env.REDIS_PORT || 6379,
-    defaultTimeSeconds: 1800
   }
 };
 

@@ -1,5 +1,24 @@
 {
-  "name": "av-tweetx",
+  "name": "graphxlist",
+  "repository": {
+    "type": "git",
+    "url": "git+https://adrivelasco@github.com/adrivelasco/graphxlist.git"
+  },
+  "author": "Adrián Velasco",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adrivelasco/graphxlist/issues"
+  },
+  "engines": {
+    "node": ">=9.0",
+    "npm": ">=3.10"
+  },
+  "browserslist": [
+    ">1%",
+    "last 4 versions",
+    "Firefox ESR",
+    "not ie < 9"
+  ],
   "scripts": {
     "clean": "shjs ./tools/scripts/clean.js",
     "build": "cross-env NODE_ENV=production npm run clean && webpack --config tools/webpack/webpack.config.js --env.production",

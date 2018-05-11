@@ -1,35 +1,17 @@
-// Needed for redux-saga es6 generator support
-import 'babel-polyfill';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import FastClick from 'fastclick';
-import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
-
-// MUI
+import { ApolloProvider } from 'react-apollo';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import { green, red } from 'material-ui/colors';
 
-// Import root app
 import App from './components/App';
-
-// Apollo
-import { ApolloProvider } from 'react-apollo';
 import createApolloClient from './core/createApolloClient.client';
-
-import configureStore from './store/configureStore';
 import history from './history';
 
-const initialState = window.APP_STATE;
-const store = configureStore(initialState, history);
-const mountNode = document.getElementById('app');
-
-// ApolloClient
-
-const apolloClient = createApolloClient();
-
-// Create a theme instance.
+// Generate a theme base on the options received.
+// https://material-ui-next.com/customization/themes/#createmuitheme-options-theme
 const theme = createMuiTheme({
   palette: {
     primary: green,
@@ -38,16 +20,22 @@ const theme = createMuiTheme({
   }
 });
 
-// Rendering client side
+// React Mount Tag
+const mountNode = document.getElementById('app');
+
+// Apollo Client
+const apolloClient = createApolloClient();
+
+// Same as render(), but is used to hydrate a container whose HTML contents were rendered by ReactDOMServer.
+// React will attempt to attach event listeners to the existing markup.
+// https://reactjs.org/docs/react-dom.html#hydrate
 ReactDOM.hydrate(
   <ApolloProvider client={apolloClient}>
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <MuiThemeProvider theme={theme}>
-          <App />
-        </MuiThemeProvider>
-      </ConnectedRouter>
-    </Provider>
+    <ConnectedRouter history={history}>
+      <MuiThemeProvider theme={theme}>
+        <App />
+      </MuiThemeProvider>
+    </ConnectedRouter>
   </ApolloProvider>,
   mountNode
 );

@@ -1,6 +1,10 @@
+'use strict';
+
 const pkg = require('../../package.json');
 
 module.exports = () => ({
+  // The list of plugins for PostCSS
+  // https://github.com/postcss/postcss
   plugins: [
     require('postcss-global-import')(),
     require('postcss-import')(),
@@ -22,6 +26,8 @@ module.exports = () => ({
     require('postcss-simple-vars')(),
     require('postcss-mixins')(),
     require('postcss-extend')(),
+    // Add vendor prefixes to CSS rules using values from caniuse.com
+    // https://github.com/postcss/autoprefixer
     require('autoprefixer')({
       browsers: pkg.browserslist,
       flexbox: 'no-2009'

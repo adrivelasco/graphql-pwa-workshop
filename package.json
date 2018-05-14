@@ -22,12 +22,6 @@
   "bugs": {
     "url": "https://github.com/adrivelasco/graphxlist/issues"
   },
-  "browserslist": [
-    ">1%",
-    "last 4 versions",
-    "Firefox ESR",
-    "not ie < 9"
-  ],
   "devDependencies": {
     "npm-run-all": "^4.1.3"
   }

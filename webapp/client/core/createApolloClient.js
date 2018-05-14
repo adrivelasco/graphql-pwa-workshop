@@ -1,11 +1,18 @@
 import { ApolloClient } from 'apollo-client';
 import { from } from 'apollo-link';
 import { onError } from 'apollo-link-error';
-import { SchemaLink } from 'apollo-link-schema';
+import { HttpLink } from 'apollo-link-http';
 
-import createCache from '../../client/core/createCache';
+import createCache from './createCache';
 
-export default function createApolloClient(schema) {
+const IS_BROWSER = process.env.BROWSER;
+
+/**
+ * Create Apollo Client
+ * @param {Object} Options
+ * @param {String} Options.graphQlApiUrl - GraphQL API Url
+ */
+export default function createApolloClient({ graphQlApiUrl }) {
   // "apollo-link" is a standard interface for modifying control flow of GraphQL requests and fetching GraphQL results,
   // designed to provide a simple GraphQL client that is capable of extensions.
   // https://github.com/apollographql/apollo-link
@@ -23,17 +30,22 @@ export default function createApolloClient(schema) {
       }
     }),
 
-    // Assists with mocking and server-side rendering
-    // https://github.com/apollographql/apollo-link/tree/master/packages/apollo-link-schema
-    new SchemaLink({ ...schema })
+    // HTTP Link takes an object with some options on it to customize the behavior of the link.
+    // If your server supports it, the HTTP link can also send over metadata about the request in the extensions field.
+    // https://github.com/apollographql/apollo-link/tree/master/packages/apollo-link-http
+    new HttpLink({
+      uri: graphQlApiUrl,
+      credentials: 'same-origin'
+    })
   ]);
 
-  // Creating an Apollo Client instance on the server
-  // https://www.apollographql.com/docs/react/features/server-side-rendering.html
+  const cache = createCache();
+
   return new ApolloClient({
     link,
-    cache: createCache(),
-    ssrMode: true,
-    queryDeduplication: true
+    ssr: !IS_BROWSER,
+    cache: IS_BROWSER ? cache.restore(window.APOLLO_STATE) : cache,
+    queryDeduplication: true,
+    connectToDevTools: IS_BROWSER
   });
 }

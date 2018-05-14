@@ -14,11 +14,11 @@ const MuiTheme = require('./mui-theme');
 const App = require('../../../client/components/App').default;
 const Html = require('../../../client/components/Html').default;
 const clientConfig = require('../../../client/config').default;
+const serverConfig = require('../../config');
 const assets = require('../../../build/assets.json');
 
 // GraphQL Setup
-const createApolloClient = require('../../core/createApolloClient.server').default;
-const schema = require('../../graphql/schema');
+const createApolloClient = require('../../../client/core/createApolloClient').default;
 
 /**
  * SSR Middleware for render html to client
@@ -29,8 +29,7 @@ const schema = require('../../graphql/schema');
 function renderHtml(req, res, next) {
   try {
     const apolloClient = createApolloClient({
-      schema,
-      rootValue: { request: req }
+      graphQlApiUrl: serverConfig.apiGateway.url
     });
 
     const context = {

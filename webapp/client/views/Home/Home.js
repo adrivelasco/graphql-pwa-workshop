@@ -5,7 +5,7 @@ import { withStyles } from 'material-ui/styles';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 
-import { topStoriesQuery } from '../../queries/topStoriesQuery';
+import { hello } from '../../queries/hello';
 import styles from './Home.styles';
 
 class Home extends React.Component {
@@ -31,16 +31,14 @@ class Home extends React.Component {
 
           {data.error && <Typography>Error {data.error.message}</Typography>}
 
-          {data.topStories && data.topStories.length > 0 && (
+          {data.hello && (
             <List classes={{ root: classes.list }}>
-              {data.topStories.map((story, i) => (
-                <ListItem key={story.id}>
-                  <ListItemText
-                    primary={story.title}
-                    secondary={`@${story.by.id}`}
-                  />
-                </ListItem>
-              ))}
+              <ListItem>
+                <ListItemText
+                  primary={data.hello}
+                  secondary="@$adrivelasco15"
+                />
+              </ListItem>
             </List>
           )}
         </div>
@@ -50,7 +48,7 @@ class Home extends React.Component {
 }
 
 const HomeWithData = compose(
-  graphql(topStoriesQuery),
+  graphql(hello),
   withStyles(styles)
 )(Home);
 

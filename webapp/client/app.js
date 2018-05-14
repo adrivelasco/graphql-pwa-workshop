@@ -7,8 +7,9 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import { green, red } from 'material-ui/colors';
 
 import App from './components/App';
-import createApolloClient from './core/createApolloClient.client';
+import createApolloClient from './core/createApolloClient';
 import history from './history';
+import config from './config';
 
 // Generate a theme base on the options received.
 // https://material-ui-next.com/customization/themes/#createmuitheme-options-theme
@@ -24,7 +25,9 @@ const theme = createMuiTheme({
 const mountNode = document.getElementById('app');
 
 // Apollo Client
-const apolloClient = createApolloClient();
+const apolloClient = createApolloClient({
+  graphQlApiUrl: config.apiGateway.url
+});
 
 // Same as render(), but is used to hydrate a container whose HTML contents were rendered by ReactDOMServer.
 // React will attempt to attach event listeners to the existing markup.

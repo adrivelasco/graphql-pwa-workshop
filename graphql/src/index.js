@@ -1,9 +1,9 @@
 'use strict';
 
-// Node.js listening middleware
 const server = require('./server');
 const config = require('./config');
 
+// Node.js listening middleware
 server
   .start({ port: config.port })
 

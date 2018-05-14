@@ -8,11 +8,11 @@
     "npm": ">=3.10"
   },
   "scripts": {
-    "install:graphql": "cd api && npm i",
+    "install:graphql": "cd graphql && npm i",
     "install:webapp": "cd webapp && npm i",
     "postinstall": "run-p install:*",
     "dev:graphql": "cd graphql && npm run dev",
-    "dev:webapp": "cd web && npm run dev",
+    "dev:webapp": "cd webapp && npm run dev",
     "dev": "run-p dev:*"
   },
   "repository": {

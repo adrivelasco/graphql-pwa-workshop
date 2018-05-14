@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "dotenv -- node src/index.js",
-    "dev": "dotenv -- nodemon -e graphql src/index.js"
+    "dev": "dotenv -- nodemon src/index.js"
   },
   "engines": {
     "node": "9.x.x"

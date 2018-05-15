@@ -2,8 +2,13 @@
 
 This proyect contains:
 
-- `**graphql**`: GraphQL API Server based on `graphql-yoga`.
-- `**webapp**`: Progressive Web Application built with `nodejs/express`, `reactjs`, `graphql`, `apollo-server` (server-side-rendering) and `apollo-client` for connet the UI with our GraphQ server.
+### `/graphql` directory
+
+GraphQL API Server based on `graphql-yoga`.
+
+### `/webapp` features
+
+Progressive Web Application built with `nodejs/express`, `reactjs`, `graphql`, `apollo-server` (server-side-rendering) and `apollo-client` for connet the UI with our GraphQ server.
 
 ## Requirements
 

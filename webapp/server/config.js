@@ -2,8 +2,9 @@
 
 // Server Configuration
 const config = {
-  env: process.env.NODE_ENV || 'production',
-  port: process.env.PORT || 3002,
+  env: process.env.NODE_ENV || 'development',
+
+  port: process.env.PORT || '4010',
 
   apiBasePath: '/',
 

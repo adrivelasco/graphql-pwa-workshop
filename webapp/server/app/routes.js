@@ -8,8 +8,6 @@ const renderHtml = require('./renderHtml');
 
 const router = express.Router();
 
-router.add('post', '/post/:slug');
-
 // Middleware to proxy requests through a specified index page, useful for SPA that utilise the HTML5 History API.
 // https://github.com/bripkens/connect-history-api-fallback
 router.use(history());

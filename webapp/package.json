@@ -1,14 +1,7 @@
 {
-  "name": "graphxlist-webapp",
-  "repository": {
-    "type": "git",
-    "url": "git+https://adrivelasco@github.com/adrivelasco/graphxlist.git"
-  },
+  "name": "graphql-pwa-workshop-webapp",
   "author": "Adrián Velasco",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/adrivelasco/graphxlist/issues"
-  },
   "engines": {
     "node": ">=9.0",
     "npm": ">=3.10"
@@ -51,6 +44,7 @@
     "graphql-tools": "^3.0.0",
     "graphqlhub-schemas": "^0.1.0",
     "history": "^4.7.2",
+    "isomorphic-unfetch": "^2.0.0",
     "material-ui": "^1.0.0-beta.44",
     "morgan": "^1.9.0",
     "prop-types": "^15.6.1",

@@ -1,34 +1,51 @@
-# GraphxList
+# GraphQL PWA Workshop
 
-Universal React App with GraphQL API 
+This proyect contains:
+
+- `**graphql**`: GraphQL API Server based on `graphql-yoga`.
+- `**webapp**`: Progressive Web Application built with `nodejs/express`, `reactjs`, `graphql`, `apollo-server` (server-side-rendering) and `apollo-client` for connet the UI with our GraphQ server.
+
+## Requirements
+
+  * Mac OS X, Windows, or Linux
+  * [Node.js](https://nodejs.org/) v9.0 or newer
+  * Text editor or IDE pre-configured with React/JSX/ESlint
 
 ## Getting Started
 
 1. Clone the repo and install dependencies
 
 ````bash
-git clone git@github.com:adrivelasco/graphxlist.git
-cd graphxlist
+git clone git@github.com:adrivelasco/graphql-pwa-workshop.git
+cd graphql-pwa-workshop
 npm install -g webpack nodemon
-npm install
+npm run install:graphql
+npm run install:webapp
 ````
 
-2. Copy the `.env.example` file to `.env` and configure it.
+2. Copy the `.env.example` of **graphql** and **webapp** folder to `.env` and configure it.
 
-3. Run server (default: PORT 3002)
+3. Run GraphQL Server (default: PORT 4000)
+
+  ````bash
+  npm run start-dev:graphql // Production mode
+  npm run start:graphql // Development mode
+  ````
+
+4. Build and start Webapp Server (default: PORT 4010)
 
   * Production mode
 
   ````bash
-  npm run build
-  npm run start
+  npm run build:webapp
+  npm run start:webapp
   ````
 
   * Development mode
 
   ````bash
-  npm run build:watch
-  npm run start:watch
+  npm run build-dev:webapp
+  npm run start-dev:webapp
   ````
 
 ## Developers

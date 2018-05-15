@@ -1,5 +1,5 @@
 {
-  "name": "graphxlist-api",
+  "name": "graphql-pwa-workshop-api",
   "version": "1.0.0",
   "scripts": {
     "start": "dotenv -- node src/index.js",

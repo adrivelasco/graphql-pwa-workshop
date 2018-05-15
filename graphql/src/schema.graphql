@@ -1,3 +1,16 @@
 type Query {
-  hello(name: String): String!
+  animals: [Animal]
+  animal(name: String!): Animal!
+}
+
+type Animal {
+  id: Int!
+  name: String!
+  thumbnail: String!
+  age: Int!
+  weight: Float!
+  height: Float!
+  hair_color: String!
+  professions: [String]
+  friends: [String]
 }

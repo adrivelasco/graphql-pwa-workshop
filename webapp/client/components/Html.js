@@ -7,7 +7,6 @@ class Html extends React.Component {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     favicon: PropTypes.string.isRequired,
-    state: PropTypes.object.isRequired,
     apolloState: PropTypes.object.isRequired,
     children: PropTypes.string.isRequired
   };
@@ -23,7 +22,6 @@ class Html extends React.Component {
       description,
       children,
       favicon,
-      state,
       scripts,
       styles,
       jss,
@@ -42,18 +40,21 @@ class Html extends React.Component {
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css" />
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
-          {styles.map(style => <link key={style} rel="stylesheet" href={style} />)}
+          {styles.map((style, i) =>
+            <link key={`${style}-${i}`} rel="stylesheet" href={style} />
+          )}
         </head>
         <body>
           {/* <!-- The app hooks into this div --> */}
           <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
           <style id="jss-server-side">{jss}</style>
           {/* <!-- Scripts tags --> */}
-          <script dangerouslySetInnerHTML={{ __html: `
-            window.APP_STATE=${serialize(state)};
-            window.APOLLO_STATE=${serialize(apolloState)};
-          ` }} />
-          {scripts.map(script => <script key={script} src={script} />)}
+          <script dangerouslySetInnerHTML={{
+            __html: `window.APOLLO_STATE=${serialize(apolloState)};`
+          }} />
+          {scripts.map((script, i) =>
+            <script key={`${script}-${i}`} src={script} />
+          )}
         </body>
       </html>
     );

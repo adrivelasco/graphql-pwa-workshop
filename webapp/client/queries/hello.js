@@ -1,7 +1,10 @@
 import gql from 'graphql-tag';
 
-export const hello = gql`
+export const hello = gql(`
   {
-    hello(name: "Adrián")
+    animals {
+      id,
+      name
+    }
   }
-`;
+`);

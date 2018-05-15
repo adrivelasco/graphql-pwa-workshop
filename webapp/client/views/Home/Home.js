@@ -47,6 +47,8 @@ class Home extends React.Component {
   }
 }
 
+// The `graphql` wrapper executes a GraphQL query and makes the results
+// available on the `data` prop of the wrapped component (PostList)
 const HomeWithData = compose(
   graphql(hello),
   withStyles(styles)

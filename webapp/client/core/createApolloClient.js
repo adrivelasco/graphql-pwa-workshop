@@ -2,10 +2,16 @@ import { ApolloClient } from 'apollo-client';
 import { from } from 'apollo-link';
 import { onError } from 'apollo-link-error';
 import { HttpLink } from 'apollo-link-http';
+import fetch from 'isomorphic-unfetch';
 
 import createCache from './createCache';
 
 const IS_BROWSER = process.env.BROWSER;
+
+// Polyfill fetch() on the server (used by apollo-client)
+if (!IS_BROWSER) {
+  global.fetch = fetch;
+}
 
 /**
  * Create Apollo Client

@@ -1,7 +1,7 @@
 // Client Configuration
 const config = {
   app: {
-    title: 'GraphxList',
+    title: 'GraphQL PWA Workshop',
     description: 'Universal React App'
   },
   // GraphQL API Gateway

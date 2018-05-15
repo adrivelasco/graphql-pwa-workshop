@@ -10,7 +10,7 @@ class Layout extends React.PureComponent {
     const { children, classes } = this.props;
     return (
       <div className={classes.root}>
-        <AppBar title="GraphxList" />
+        <AppBar title="GraphQL PWA Workshop" />
         <div className={classes.content}>
           <Container>
             {children}

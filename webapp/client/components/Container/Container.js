@@ -1,20 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
 
-import styles from './Container.styles';
+import styles from './Container.css';
 
-const Container = ({ classes, children }) => {
+const Container = ({ children }) => {
   return (
-    <div className={classes.root}>
+    <div className={styles.root}>
       {children}
     </div>
   );
 };
 
 Container.propTypes = {
-  children: PropTypes.node,
-  classes: PropTypes.object.isRequired
+  children: PropTypes.node
 };
 
-export default withStyles(styles)(Container);
+export default Container;

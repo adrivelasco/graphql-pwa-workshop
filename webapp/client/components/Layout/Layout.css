@@ -1,0 +1,22 @@
+:global {
+  html {
+		box-sizing: border-box !important;
+		width: 100%;
+		height: 100%;
+	}
+	*,
+	*:before,
+	*:after {
+		box-sizing: inherit;
+		box-sizing: inherit;
+	}
+}
+
+.root {
+  font-size: 16px;
+}
+
+.content {
+  padding: 35px 0;
+  position: relative;
+}

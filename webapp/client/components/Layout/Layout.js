@@ -1,17 +1,24 @@
 import React from 'react';
-import { withStyles } from 'material-ui/styles';
+import PropTypes from 'prop-types';
 
 import AppBar from '../AppBar';
 import Container from '../Container';
-import styles from './Layout.styles';
+import styles from './Layout.css';
 
+/**
+ * Basic Style Layout structure of our website
+ */
 class Layout extends React.PureComponent {
+  static propTypes = {
+    children: PropTypes.node
+  };
+
   render() {
-    const { children, classes } = this.props;
+    const { children } = this.props;
     return (
-      <div className={classes.root}>
+      <div className={styles.root}>
         <AppBar title="GraphQL PWA Workshop" />
-        <div className={classes.content}>
+        <div className={styles.content}>
           <Container>
             {children}
           </Container>
@@ -21,4 +28,4 @@ class Layout extends React.PureComponent {
   }
 }
 
-export default withStyles(styles)(Layout);
+export default Layout;

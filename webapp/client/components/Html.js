@@ -36,9 +36,8 @@ class Html extends React.Component {
           <title>{title} | {description}</title>
           <meta name="description" content={description} />
           <link rel="shortcut icon" href={favicon} />
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" />
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css" />
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" />
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
           {styles.map((style, i) =>
             <link key={`${style}-${i}`} rel="stylesheet" href={style} />

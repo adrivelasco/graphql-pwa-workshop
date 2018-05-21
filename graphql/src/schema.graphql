@@ -5,7 +5,9 @@ type Query {
 
 type Animal {
   id: Int!
-  name: String!
+  name: String! @deprecated(reason: "Use firstName and lastName instead")
+  firstName: String!
+  lastName: String!
   thumbnail: String!
   age: Int!
   weight: Float!

@@ -13,7 +13,14 @@ const Query = {
         json: true,
         resolveWithFullResponse: true
       });
-      return response.body;
+      return response.body.map((animal, i) => {
+        const nameOfAnimal = animal.name.split(' ');
+        return {
+          ...animal,
+          firstName: nameOfAnimal[0],
+          lastName: nameOfAnimal[1]
+        }
+      });
     } catch (err) {
       return console.log(err);
     }

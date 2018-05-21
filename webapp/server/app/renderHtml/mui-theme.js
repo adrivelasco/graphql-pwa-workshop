@@ -1,8 +1,9 @@
 'use strict';
 
 const { SheetsRegistry } = require('react-jss/lib/jss');
-const { createMuiTheme, createGenerateClassName } = require('material-ui/styles');
-const { green, red } = require('material-ui/colors');
+const { createGenerateClassName } = require('material-ui/styles');
+
+const createCustomMuiTheme = require('../../../client/core/createCustomMuiTheme').default;
 
 /**
  * Material-UI was designed from the ground-up with the constraint of rendering on the Server,
@@ -25,13 +26,7 @@ class MuiTheme {
     this.sheetsRegistry = new SheetsRegistry();
 
     // Create a theme instance.
-    this.theme = createMuiTheme({
-      palette: {
-        primary: green,
-        accent: red,
-        type: 'light'
-      }
-    });
+    this.theme = createCustomMuiTheme();
 
     this.generateClassName = createGenerateClassName();
     this.grabCss = this.grabCss.bind(this);

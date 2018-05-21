@@ -1,0 +1,23 @@
+.root {
+  display: flex;
+  position: relative;
+}
+
+.image {
+  position: relative;
+  width: 50%;
+  img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+}
+
+.info {
+  flex: 1;
+  padding: 15px 0 15px 15px;
+  position: relative;
+  strong {
+    font-weight: 500;
+  }
+}

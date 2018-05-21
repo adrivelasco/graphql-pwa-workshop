@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, compose } from 'react-apollo';
-import { withStyles } from 'material-ui/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -11,11 +10,10 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
 import { animals } from '../../queries/animals';
-import styles from './Home.styles';
+import styles from './Home.css';
 
 class Home extends React.Component {
   static propTypes = {
-    classes: PropTypes.object.isRequired,
     history: PropTypes.shape({
       push: PropTypes.func
     }),
@@ -27,11 +25,10 @@ class Home extends React.Component {
   };
 
   render() {
-    const { data, classes, history } = this.props;
-    console.log(data);
+    const { data, history } = this.props;
     return (
       <div>
-        <div className={classes.title}>
+        <div className={styles.title}>
           <Typography variant="title">GraphQL PWA Workshop</Typography>
           <Typography variant="subheading">@adrivelasco</Typography>
           <br />
@@ -47,17 +44,17 @@ class Home extends React.Component {
           {data.error && <Typography>Error {data.error.message}</Typography>}
 
           {data.animals && (
-            <div classes={{ root: classes.list }}>
+            <div classes={{ root: styles.list }}>
               <Grid container spacing={8}>
                 {data.animals.length > 0 && data.animals.map((animal, i) => {
                   return (
                     <Grid item xs={6} sm={3} key={animal.id}>
                       <Card
-                        className={classes.card}
+                        className={styles.card}
                         onClick={() => history.push(`/${animal.name}`)}
                       >
                         <CardMedia
-                          className={classes.media}
+                          className={styles.media}
                           image={animal.thumbnail}
                           title={animal.name}
                         />
@@ -90,8 +87,7 @@ class Home extends React.Component {
 // The `graphql` wrapper executes a GraphQL query and makes the results
 // available on the `data` prop of the wrapped component (PostList)
 const HomeWithData = compose(
-  graphql(animals),
-  withStyles(styles)
+  graphql(animals)
 )(Home);
 
 export default HomeWithData;

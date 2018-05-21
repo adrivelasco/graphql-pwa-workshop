@@ -1,13 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, compose } from 'react-apollo';
-import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
-import Avatar from '@material-ui/core/Avatar';
-import Chip from '@material-ui/core/Chip';
-import FaceIcon from '@material-ui/icons/Face';
 
 import { personById } from '../../queries/animals';
+import styles from './Detail.css';
 
 class Detail extends React.Component {
   static propTypes = {
@@ -39,12 +36,13 @@ class Detail extends React.Component {
     if (data.animal) {
       const person = data.animal;
       return (
-        <div>
-          <div>
+        <div className={styles.root}>
+          <div className={styles.image}>
             <img src={person.thumbnail} alt={person.name} />
           </div>
-          <div>
+          <div className={styles.info}>
             <Typography variant="title">{person.name}</Typography>
+            <br />
             <Typography component="p">
               Age: <strong>{person.age}</strong>
             </Typography>

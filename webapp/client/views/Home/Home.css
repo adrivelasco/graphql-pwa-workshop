@@ -1,0 +1,16 @@
+.title {
+  margin-bottom: 30px;
+}
+
+.list {
+  border: 1px solid #f6f6f6;
+}
+
+.card {
+  cursor: pointer;
+  height: 100%;
+}
+
+.media {
+  height: 200px;
+}

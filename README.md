@@ -1,6 +1,6 @@
 # GraphQL PWA Workshop
 
-This proyect is for a workshop of how to create an Universal Application with `Nodejs` + `Reactjs` and connect our UI to a `GraphQL` API Server running in parallel with `Apollo`. Using modern tools such as `Material-UI@Next`, `Webpack`, `Babel` and `PostCSS`. 
+This repo was created for a workshop of how to create an Universal Application with `Nodejs` + `Reactjs` and connect our UI to a `GraphQL` API Server running in parallel with `Apollo`, using modern tools such as `Material-UI@Next`, `Webpack`, `Babel` and `PostCSS`. 
 
 ### `/api` directory
 

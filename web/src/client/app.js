@@ -2,14 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import FastClick from 'fastclick';
 import { Router } from 'react-router-dom';
-import { MuiThemeProvider } from '@material-ui/core/styles';
 import { ApolloProvider } from 'react-apollo';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 
-import App from './components/App';
-import createApolloClient from './core/createApolloClient';
-import createCustomMuiTheme from './core/createCustomMuiTheme';
+import createApolloClient from '../core/createApolloClient';
+import createCustomMuiTheme from '../core/createCustomMuiTheme';
 import history from './history';
 import config from './config';
+import App from '../ui/App';
 
 // Generate a theme base on the options received.
 // https://material-ui-next.com/customization/themes/#createmuitheme-options-theme

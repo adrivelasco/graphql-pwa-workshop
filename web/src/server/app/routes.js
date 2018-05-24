@@ -15,7 +15,7 @@ router.use(history());
 // Create a virtual path prefix (where the path does not actually exist in the file system) for files that
 // are served by the express.static function, specify a mount path for the static directory, as shown below:
 // http://expressjs.com/en/starter/static-files.html
-router.use('/static', express.static(path.resolve(__dirname, '../../build/static')));
+router.use('/static', express.static(path.resolve(__dirname, '../../../build/static')));
 
 router.get('*', renderHtml);
 

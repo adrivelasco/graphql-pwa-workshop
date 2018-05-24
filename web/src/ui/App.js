@@ -1,9 +1,9 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import ScrollToTop from './ScrollToTop';
-import Layout from './Layout';
-import views from '../views';
+import ScrollToTop from './components/ScrollToTop';
+import Layout from './components/Layout';
+import views from './views';
 
 const App = () => {
   return (

@@ -8,15 +8,15 @@
     "npm": ">=3.10"
   },
   "scripts": {
-    "install:graphql": "cd graphql && npm i",
-    "install:webapp": "cd webapp && npm i",
+    "install:api": "cd api && npm i",
+    "install:web": "cd web && npm i",
     "postinstall": "run-p install:*",
-    "start-dev:graphql": "cd graphql && npm run dev",
-    "start:graphql": "cd graphql && npm run start",
-    "start-dev:webapp": "cd webapp && npm run start:watch",
-    "start:webapp": "cd webapp && npm run start",
-    "build-dev:webapp": "cd webapp && npm run build:watch",
-    "build:webapp": "cd webapp && npm run build"
+    "start-dev:api": "cd api && npm run dev",
+    "start:api": "cd api && npm run start",
+    "start-dev:web": "cd web && npm run start:watch",
+    "start:web": "cd web && npm run start",
+    "build-dev:web": "cd web && npm run build:watch",
+    "build:web": "cd web && npm run build"
   },
   "repository": {
     "type": "git",

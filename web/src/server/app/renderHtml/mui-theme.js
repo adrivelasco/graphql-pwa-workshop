@@ -3,7 +3,7 @@
 const { SheetsRegistry } = require('react-jss/lib/jss');
 const { createGenerateClassName } = require('material-ui/styles');
 
-const createCustomMuiTheme = require('../../../client/core/createCustomMuiTheme').default;
+const createCustomMuiTheme = require('../../../core/createCustomMuiTheme').default;
 
 /**
  * Material-UI was designed from the ground-up with the constraint of rendering on the Server,

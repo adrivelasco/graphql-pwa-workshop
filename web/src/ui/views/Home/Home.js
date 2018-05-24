@@ -9,7 +9,7 @@ import Typography from 'material-ui/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
-import { animals } from '../../queries/animals';
+import { animals } from '../../../queries/animals';
 import styles from './Home.css';
 
 class Home extends React.Component {
@@ -44,7 +44,7 @@ class Home extends React.Component {
           {data.error && <Typography>Error {data.error.message}</Typography>}
 
           {data.animals && (
-            <div classes={{ root: styles.list }}>
+            <div className={styles.list}>
               <Grid container spacing={8}>
                 {data.animals.length > 0 && data.animals.map((animal, i) => {
                   return (

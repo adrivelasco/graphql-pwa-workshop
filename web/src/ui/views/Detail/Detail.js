@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql, compose } from 'react-apollo';
 import Typography from 'material-ui/Typography';
 
-import { personById } from '../../queries/animals';
+import { personById } from '../../../queries/animals';
 import styles from './Detail.css';
 
 class Detail extends React.Component {

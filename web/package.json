@@ -15,9 +15,9 @@
   "scripts": {
     "clean": "shjs ./tools/scripts/clean.js",
     "build": "cross-env NODE_ENV=production npm run clean && webpack --config tools/webpack/webpack.config.js --env.production",
-    "start": "cross-env NODE_ENV=production node server/index.js",
+    "start": "cross-env NODE_ENV=production node src/server/index.js",
     "build:watch": "cross-env NODE_ENV=development npm run clean && webpack --config tools/webpack/webpack.config.js -w",
-    "start:watch": "cross-env NODE_ENV=development nodemon -e js,json,css server/index.js",
+    "start:watch": "cross-env NODE_ENV=development nodemon -e js,json,css src/server/index.js",
     "lint": "eslint --fix ."
   },
   "dependencies": {

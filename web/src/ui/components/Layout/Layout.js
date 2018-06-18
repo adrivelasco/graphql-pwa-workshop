@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import AppBar from '../AppBar';
+import Navbar from '../Navbar';
 import Container from '../Container';
 import styles from './Layout.css';
 
@@ -17,7 +17,16 @@ class Layout extends React.PureComponent {
     const { children } = this.props;
     return (
       <div className={styles.root}>
-        <AppBar title="GraphQL PWA Workshop" />
+        <Navbar
+          title="Cuponstar"
+        >
+          <Navbar.Menu>
+            <Navbar.Item text="Fechas" link="/" />
+            <Navbar.Item text="Posiciones" link="/" />
+            <Navbar.Item text="Mi cuenta" link="/" />
+            <Navbar.Item text="Salir" link="/" />
+          </Navbar.Menu>
+        </Navbar>
         <div className={styles.content}>
           <Container>
             {children}

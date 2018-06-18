@@ -1,0 +1,113 @@
+@import '../variables.css';
+
+.root {
+  color: #fff;
+  font-weight: var(--font-weight);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.team {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 20px;
+  @media (--desktop-viewport-sm) {
+    padding-right: 10px;
+  }
+  @media (--mobile-large-viewport) {
+    padding-right: 6px;
+  }
+}
+
+.flag {
+  background: #464646;
+  width: 160px;
+  height: 100px;
+  margin-right: 20px;
+  position: relative;
+  @media (--desktop-viewport-sm) {
+    width: 100px;
+    height: 60px;
+    margin-right: 10px;
+  }
+  @media (--mobile-large-viewport) {
+    width: 70px;
+    height: 40px;
+    margin-right: 6px;
+  }
+  img {
+    margin: 0 auto;
+    display: block;
+    max-width: 100%;
+  }
+}
+
+.name {
+  display: block;
+  font-size: 24px;
+  @media (--desktop-viewport-sm) {
+    font-size: 20px;
+  }
+  @media (--mobile-large-viewport) {
+    font-size: 18px;
+  }
+}
+
+.point {
+  font-size: 24px;
+  position: relative;
+  display: block;
+  padding: 20px;
+  @media (--desktop-viewport-sm) {
+    font-size: 20px;
+    padding: 10px;
+  }
+  @media (--mobile-large-viewport) {
+    font-size: 18px;
+    padding: 6px;
+  }
+}
+
+.root:last-child {
+  flex-direction: row-reverse;
+  .team {
+    flex-direction: row-reverse;
+    padding-right: 0;
+    padding-left: 20px;
+    @media (--desktop-viewport-sm) {
+      padding-left: 10px;
+    }
+    @media (--mobile-large-viewport) {
+      padding-left: 6px;
+    }
+    .flag {
+      margin-right: 0;
+      margin-left: 20px;
+      @media (--desktop-viewport-sm) {
+        margin-right: 0;
+        margin-left: 10px;
+      }
+      @media (--mobile-large-viewport) {
+        margin-left: 6px;
+      }
+    }
+  }
+}
+
+.field {
+  margin: 4px 0 4px 4px;
+  width: 28px;
+  height: 28px;
+  text-align: center;
+  padding: 4px;
+  font-size: 16px;
+  border-radius: 2px;
+  border: 0;
+  @media (--mobile-large-viewport) {
+    font-size: 14px;
+  }
+}

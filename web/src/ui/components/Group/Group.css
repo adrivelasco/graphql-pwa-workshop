@@ -1,0 +1,44 @@
+@import '../variables.css';
+
+.root {
+  background: rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin: 6px;
+  flex: 1;
+  @media (--mobile-large-viewport) {
+    margin: 5px;
+  }
+}
+
+.title {
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: #000;
+  text-transform: uppercase;
+  font-weight: var(--font-weight);
+  font-size: 24px;
+  background: var(--main-color-lightness);
+  padding: 0 15px;
+  @media (--desktop-viewport-sm) {
+    font-size: 22px;
+    height: 50px;
+    padding: 0 8px;
+  }
+  @media (--mobile-large-viewport) {
+    font-size: 18px;
+    height: 45px;
+    padding: 0 10px;
+  }
+}
+
+.content {
+  padding: 20px 15px;
+  @media (--desktop-viewport-sm) {
+    padding: 18px 13px;
+  }
+  @media (--mobile-large-viewport) {
+    padding: 15px 10px;
+  }
+}

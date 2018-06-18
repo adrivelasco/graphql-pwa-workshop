@@ -1,0 +1,13 @@
+@import '../variables.css';
+
+.root {
+  display: block;
+  font-size: 16px;
+  color: var(--main-color-lightness);
+  font-weight: var(--font-weight);
+  margin-bottom: 10px;
+}
+
+.root.uppercase {
+  text-transform: uppercase;
+}

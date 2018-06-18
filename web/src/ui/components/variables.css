@@ -1,0 +1,41 @@
+/* Breakpoints */
+@custom-media --mobile-small-viewport (max-width: 320px);
+@custom-media --mobile-large-viewport (max-width: 1023px);
+@custom-media --desktop-viewport-sm (max-width: 1280px);
+@custom-media --desktop-viewport-md (min-width: 1600px);
+
+:root {
+  --transition-time: 0.3s ease;
+  --font-weight: 500;
+
+  --main-color: #f3c75a;
+  --main-color-lightness: #ffd835;
+  --contrast-color: #0e0e0e;
+
+  /* Z-Index
+  -------------------------------------- */
+  --z-index-navbar: 100;
+
+  /** Navbar */
+  --navbar-background: rgba(10,10,10, 0.95);
+
+  /** Buttons */
+  --button-border-radius: 2px;
+  --button-background-color: #999999;
+  --button-height: 46px;
+  --button-font-size: 15px;
+  --button-font-weight: 500;
+  --button-margin-y: 4px;
+  --button-margin-x: 6px;
+  --button-margin: var(--button-margin-y) var(--button-margin-x);
+  --button-min-width: 108px;
+  --button-padding: 0 24px;
+  --button-text-transform: uppercase;
+
+  --button-disabled-background: #494949;
+  --button-disabled-color: #7c7c7c;
+
+  --button-sm-padding: 0 16px;
+  --button-sm-height: 36px;
+  --button-sm-font-size: 14px;
+}

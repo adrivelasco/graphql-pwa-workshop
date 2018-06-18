@@ -1,0 +1,40 @@
+@import '../variables.css';
+
+:root {
+  --navbar-height: 75px;
+  --navbar-height-sm: 60px;
+}
+
+.navbar {
+  z-index: var(--z-index-navbar);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  color: #fff;
+  background: var(--navbar-background);
+  padding: 0 10px;
+  height: var(--navbar-height);
+  @media (--mobile-large-viewport) {
+    height: var(--navbar-height-sm);
+    padding: 0 15px;
+  }
+}
+
+.wrapper {
+  height: var(--navbar-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @media (--mobile-large-viewport) {
+    height: var(--navbar-height-sm);
+  }
+}
+
+.fake-header {
+  height: var(--navbar-height);
+  @media (--mobile-large-viewport) {
+    height: var(--navbar-height-sm);
+  }
+}

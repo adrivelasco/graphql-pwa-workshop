@@ -1,0 +1,85 @@
+@import '../variables.css';
+
+:root {
+  --padding-info: 8px;
+  --padding-info-sm: 6px;
+}
+
+.root {
+  margin-top: 20px;
+  border-top: 1px solid rgba(250,250,250,0.05);
+}
+
+.root:first-child {
+  margin-top: 0;
+  border: 0;
+}
+
+.root:first-child .teams {
+  padding-top: 8px;
+}
+
+.teams {
+  position: relative;
+  padding: 20px 0 28px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.info {
+  position: relative;
+}
+
+.date {
+  background: var(--main-color);
+  font-weight: var(--font-weight);
+  padding: var(--padding-info);
+  text-align: center;
+  margin-bottom: 8px;
+  @media (--desktop-viewport-sm) {
+    padding: var(--padding-info-sm);
+    margin-bottom: 6px;
+  }
+}
+
+.results {
+  display: flex;
+  font-weight: var(--font-weight);
+}
+
+.final {
+  flex: 1;
+  display: flex;
+}
+
+.label {
+  padding: var(--padding-info);
+  background: var(--main-color);
+  margin-right: 8px;
+  @media (--desktop-viewport-sm) {
+    padding: var(--padding-info-sm);
+    margin-right: 6px;
+  }
+}
+
+.point {
+  background: var(--main-color);
+  margin: 0 8px;
+  padding: var(--padding-info);
+  padding-right: 30px;
+  padding-left: 30px;
+  @media (--desktop-viewport-sm) {
+    margin: 0 6px;
+    padding: var(--padding-info-sm);
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+}
+
+.total {
+  padding: var(--padding-info);
+  color: #fff;
+  @media (--desktop-viewport-sm) {
+    padding: var(--padding-info-sm);
+  }
+}

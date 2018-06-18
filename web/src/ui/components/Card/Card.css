@@ -1,0 +1,17 @@
+@import '../variables.css';
+
+.root {
+  background: rgba(0, 0, 0, 0.2);
+  position: relative;
+  flex: 1;
+  padding: 20px 15px;
+  color: #fff;
+  margin: 6px;
+  @media (--desktop-viewport-sm) {
+    padding: 18px 13px;
+  }
+  @media (--mobile-large-viewport) {
+    margin: 5px;    
+    padding: 15px 10px;
+  }
+}

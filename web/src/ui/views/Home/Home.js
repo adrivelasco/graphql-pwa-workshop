@@ -1,15 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql, compose } from 'react-apollo';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from 'material-ui/Typography';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
 
-import { animals } from '../../../queries/animals';
+import Tab from '../../components/Tab';
+import Group from '../../components/Group';
+import Game from '../../components/Game';
+import Slider from '../../components/Slider';
+import Card from '../../components/Card';
+import Button from '../../components/Button';
 import styles from './Home.css';
 
 class Home extends React.Component {
@@ -24,70 +21,101 @@ class Home extends React.Component {
     })
   };
 
+  renderDay1() {
+    return (
+      <div className={styles.groups}>
+        <Group title="Grupo G">
+          <Game
+            onPointChange={(value) => console.log(value)}
+            schedule={{
+              date: '18/06/2018',
+              time: '12:00'
+            }}
+            teams={[
+              { name: 'RUS', flag: '', point: 5 },
+              { name: 'ARG', flag: '', point: 2 }
+            ]}
+          />
+        </Group>
+        <Group title="Grupo G">
+          <Game
+            onPointChange={(value) => console.log(value)}
+            schedule={{
+              date: '18/06/2018',
+              time: '12:00'
+            }}
+            teams={[
+              { name: 'RUS', flag: '', point: 5 },
+              { name: 'ARG', flag: '', point: 2 }
+            ]}
+          />
+        </Group>
+      </div>
+    );
+  }
+
   render() {
-    const { data, history } = this.props;
     return (
       <div>
-        <div className={styles.title}>
-          <Typography variant="title">GraphQL PWA Workshop</Typography>
-          <Typography variant="subheading">@adrivelasco</Typography>
-          <br />
-          <Typography component="p">
-            {`This proyect is for a workshop of how to create an Universal Application with Nodejs + Reactjs and 
-            connect our UI to a GraphQL API Server running in parallel with Apollo. Using modern tools such as Webpack, 
-            Babel and PostCSS.`}
-          </Typography>
-        </div>
-        <div>
-          {data.loading && <Typography>Loading...</Typography>}
-
-          {data.error && <Typography>Error {data.error.message}</Typography>}
-
-          {data.animals && (
-            <div className={styles.list}>
-              <Grid container spacing={8}>
-                {data.animals.length > 0 && data.animals.map((animal, i) => {
-                  return (
-                    <Grid item xs={6} sm={3} key={animal.id}>
-                      <Card
-                        className={styles.card}
-                        onClick={() => history.push(`/${animal.name}`)}
-                      >
-                        <CardMedia
-                          className={styles.media}
-                          image={animal.thumbnail}
-                          title={animal.name}
-                        />
-                        <CardContent>
-                          <Typography gutterBottom variant="title" component="h2">
-                            {animal.name}
-                          </Typography>
-                          <Typography component="p">
-                            ID: {animal.id}
-                          </Typography>
-                        </CardContent>
-                        <CardActions>
-                          <Button size="small" color="primary">
-                            Learn More
-                          </Button>
-                        </CardActions>
-                      </Card>
-                    </Grid>
-                  );
-                })}
-              </Grid>
+        <div className={styles.topHome}>
+          <Card className={styles.userCard}>
+            <div className={styles.userProfile}>
+              <div className={styles.avatar}>
+              </div>
+              <div className={styles.userInfo}>
+                <span className={styles.name}>Hola, <strong>Brian</strong>!</span>
+                <span className={styles.company}>Cuponstar</span>
+                <div className={styles.action}>
+                  <Button size="sm" link href="/#">
+                    Editar perfil
+                  </Button>
+                </div>
+              </div>
             </div>
-          )}
+          </Card>
+          <div className={styles.dashboard}>
+            <Card>
+              <Card.Title>FECHA 1 | PRÓXIMO PARTIDO 14/06/2018 12:00</Card.Title>
+              <p><strong>RUSIA VS. ARABIA SAUDITA | EGIPTO VS URUGUAY</strong></p>
+            </Card>
+            <div className={styles.stadistics}>
+              <Card>
+                <Card.Title>Tu puntaje</Card.Title>
+                <p><strong>21487</strong></p>
+              </Card>
+              <Card>
+                <Card.Title>Posición</Card.Title>
+                <p><strong>12</strong></p>
+              </Card>
+            </div>
+          </div>
+        </div>
+        <Slider>
+          <img link="https://google.com.ar" src="https://s3.amazonaws.com/bondacom-cdn/test/banner-desktop_coffee-1.png" alt="Name" />
+          <img src="https://s3.amazonaws.com/bondacom-cdn/test/banner-desktop_coffee-1.png" alt="Name" />
+        </Slider>
+        <div>
+          <Tab
+            panes={[
+              { menuItem: 'Fecha 1', render: () => this.renderDay1() },
+              { menuItem: 'Fecha 2', render: () => null },
+              { menuItem: 'Fecha 3', render: () => null }
+            ]}
+          />
+          <Card>
+            <div className={styles.actions}>
+              <Button block className={styles.saveResults}>
+                Guardar resultados
+              </Button>
+              <Button block className={styles.nextDate}>
+                Siguiente fecha
+              </Button>
+            </div>
+          </Card>
         </div>
       </div>
     );
   }
 }
 
-// The `graphql` wrapper executes a GraphQL query and makes the results
-// available on the `data` prop of the wrapped component (PostList)
-const HomeWithData = compose(
-  graphql(animals)
-)(Home);
-
-export default HomeWithData;
+export default Home;

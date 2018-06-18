@@ -1,0 +1,100 @@
+@import '../variables.css';
+
+.root {
+  display: flex;
+  align-items: center;
+}
+
+.button {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+	height: 40px;
+  padding: 12px 10px;
+}
+
+.bars {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  position: relative;
+  align-self: center;
+	transform: rotate(0deg);
+}
+
+.bar {
+  background: #fff;
+  height: 2px;
+  width: 100%;
+  border-radius: 2px;
+  display: block;
+  position: absolute;
+  opacity: 1;
+  left: 0;
+  transform: rotate(0deg);
+  transform-origin: left center;
+  transition: all 0.25s ease-in-out;
+  &:last-child {
+    margin: 0 auto;
+  }
+  &:nth-child(1) {
+    top: 0px;
+  }
+  &:nth-child(2) {
+    top: 6px;
+  }
+  &:nth-child(3) {
+    top: 12px;
+  }
+  .active & {
+    &:nth-child(1) {
+      transform: rotate(45deg);
+      top: -1px;
+      left: 3px;
+    }
+    &:nth-child(2) {
+      width: 0%;
+      opacity: 0;
+    }
+    &:nth-child(3) {
+      transform: rotate(-45deg);
+      top: 13px;
+      left: 3px;
+    }
+  }
+}
+
+.overlay {
+  height: 100%;
+  max-height: none;
+  padding: 0;
+  position: fixed;
+  top: 59px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--navbar-background);
+  transition: all var(--transition-time);
+  width: 100%;
+  flex-direction: column;
+  height: calc(100vh - 59px);
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+  &.open {
+    pointer-events: initial;
+    opacity: 1;
+    visibility: visible;
+    .items {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.overlay-content {
+  padding: 15px;
+}

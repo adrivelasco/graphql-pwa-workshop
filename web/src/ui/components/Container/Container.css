@@ -1,8 +1,15 @@
+@import '../variables.css';
+
 .root {
-  max-width: 1024px;
+  max-width: 1280px;
   width: 100%;
   position: relative;
   display: block;
-  padding: 0 15px;
   margin: 0 auto;
+  @media (--desktop-viewport-sm) {
+    max-width: 1024px;
+  }
+  @media (--mobile-large-viewport) {
+    padding: 0;
+  }
 }

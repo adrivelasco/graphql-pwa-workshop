@@ -7,7 +7,6 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const AssetsPlugin = require('assets-webpack-plugin');
 const pkg = require('../../package.json');
-const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
 // Directories
 const ROOT_DIR = path.resolve(__dirname, '../..');
@@ -93,41 +92,6 @@ const config = {
         // Decrease script evaluation time
         new webpack.optimize.ModuleConcatenationPlugin(),
 
-        // SW-Precache for offline-working
-        new SWPrecacheWebpackPlugin({
-          cacheId: 'axion-card-pwa',
-          minify: isProduction,
-          filename: '../sw.js',
-          staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
-          directoryIndex: '/',
-          navigateFallback: '/',
-          maximumFileSizeToCacheInBytes: !isProduction ? 5242880 : 2097152,
-          verbose: !isProduction,
-          runtimeCaching: [
-            {
-              // Use a 'cache-first' strategy for js or css bundles and images.
-              urlPattern: /\/static\//,
-              handler: 'cacheFirst'
-            },
-            {
-              // Use a 'network-first' strategy for API request to get fresh data.
-              urlPattern: /\/api\//,
-              handler: 'networkFirst',
-              options: {
-                cache: {
-                  name: 'api-cache'
-                },
-                debug: !isProduction,
-                successResponses: /^0|([123]\d\d)|(40[134567])|410$/
-              }
-            },
-            {
-              // Use a network-first strategy for everything else.
-              default: 'networkFirst'
-            }
-          ]
-        }),
-
         // Minimize all JavaScript output of chunks
         new webpack.optimize.UglifyJsPlugin({
           sourceMap: true,
@@ -210,7 +174,8 @@ const config = {
           // Process internal/project styles (from client folder)
           {
             include: [
-              resolvePath(SRC_DIR, 'ui')
+              resolvePath(SRC_DIR, 'ui'),
+              /flexboxgrid/
             ],
             use: ExtractTextPlugin.extract({
               fallback: 'isomorphic-style-loader', // Convert CSS into JS module

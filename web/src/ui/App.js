@@ -9,7 +9,7 @@ const App = () => {
   return (
     <ScrollToTop>
       <Route render={({ location, history }) => (
-        <Layout>
+        <Layout location={location}>
           <Switch>
             {views.map((view, i) => {
               return (

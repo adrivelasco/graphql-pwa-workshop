@@ -1,9 +1,9 @@
 import Home from './Home';
-import Detail from './Detail';
+import SignIn from './SignIn';
+import CreateAccount from './CreateAccount';
 
 const views = [
 
-  // Homepage
   {
     path: '/',
     exact: true,
@@ -11,12 +11,18 @@ const views = [
     component: Home
   },
 
-  // Detail
   {
-    path: '/:name',
+    path: '/login',
     exact: true,
-    title: 'Detail',
-    component: Detail
+    title: 'SignIn',
+    component: SignIn
+  },
+
+  {
+    path: '/create-account',
+    exact: true,
+    title: 'CreateAccount',
+    component: CreateAccount
   }
 ];
 

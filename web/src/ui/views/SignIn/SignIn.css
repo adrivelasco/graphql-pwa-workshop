@@ -1,0 +1,11 @@
+.fields {
+  border: 1px solid rgba(250, 250, 250, 0.1);
+  padding: 4px 10px;
+  border-radius: 2px;
+}
+
+.signup {
+  position: relative;
+  text-align: center;
+  margin-top: 20px;
+}

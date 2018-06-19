@@ -1,0 +1,31 @@
+.fields {
+  margin-top: 20px;
+  &.grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.genre {
+  display: flex;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.gridCol {
+  position: relative;
+  width: calc(50% - 8px);
+  margin-left: 4px;
+  &:nth-child(odd) {
+    margin-left: 0;
+    margin-right: 4px;
+  }
+  @media (--mobile-large-viewport) {
+    margin: 0;
+    width: 100%;
+  }
+}

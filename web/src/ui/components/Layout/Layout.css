@@ -16,16 +16,58 @@
 		background: #383838;
 	}
 
+	p {
+		line-height: 21px;
+	}
+
 	strong {
 		font-weight: 500;
 	}
 }
 
-.root {
+/** App Layout */
+.app-root {
   font-size: 15px;
 }
 
 .content {
   padding: 35px 0;
   position: relative;
+}
+
+/** Login Layout */
+.login-root {
+  position: relative;
+  padding-top: 40px;
+  padding-bottom: 20px;
+  @media (--mobile-large-viewport) {
+    padding: 40px 5px 10px 5px;
+  }
+}
+
+.title {
+  font-size: 24px;
+  color: #fff;
+  text-align: center;
+  font-weight: var(--font-weight);
+  padding: 25px 0 32px;
+  text-transform: uppercase;
+  span {
+    display: block;
+    &:first-child {
+      font-size: 38px;
+      margin-bottom: -2px;
+    }
+  }
+}
+
+.card {
+  max-width: 690px;
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+  padding: 26px;
+  @media (--mobile-large-viewport) {
+    padding: 10px;
+  }
 }

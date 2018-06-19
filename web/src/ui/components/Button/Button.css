@@ -28,6 +28,9 @@
     background: var(--main-color-lightness);
     color: var(--contrast-color);
   }
+  &.active:hover {
+    background: var(--main-color);
+  }
 }
 
 .block {

@@ -8,7 +8,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const AssetsPlugin = require('assets-webpack-plugin');
 const pkg = require('../../package.json');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
-
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 // Directories
 const ROOT_DIR = path.resolve(__dirname, '../..');
 const resolvePath = (...args) => path.resolve(ROOT_DIR, ...args);
@@ -45,12 +45,12 @@ const config = {
   output: {
     path: resolvePath(BUILD_DIR, 'static'),
     publicPath: '/static/',
-    filename: !isProduction
-      ? 'js/[name].js'
-      : 'js/[name].[hash:8].js',
-    chunkFilename: !isProduction
-      ? 'js/[name].js'
-      : 'js/[name].[hash:8].js'
+    filename: !isProduction ?
+      'js/[name].js' :
+      'js/[name].[hash:8].js',
+    chunkFilename: !isProduction ?
+      'js/[name].js' :
+      'js/[name].[hash:8].js'
   },
 
   optimization: {
@@ -62,15 +62,29 @@ const config = {
           chunks: 'all'
         }
       }
-    }
+    },
+    // Minimize all JavaScript output of chunks
+    minimizer: [
+      // we specify a custom UglifyJsPlugin here to get source maps in production
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        uglifyOptions: {
+          compress: isProduction,
+          ecma: 6,
+          mangle: true
+        },
+        sourceMap: true
+      })
+    ],
   },
 
   plugins: [
     // Extract all CSS files and compile it on a single file
     new ExtractTextPlugin({
-      filename: !isProduction
-        ? 'css/[name].css'
-        : 'css/[name].[contenthash:base64:8].css',
+      filename: !isProduction ?
+        'css/[name].css' :
+        'css/[name].[contenthash:base64:8].css',
       publicPath: '/static/',
       allChunks: true
     }),
@@ -88,8 +102,8 @@ const config = {
       prettyPrint: true
     }),
 
-    ...(isProduction
-      ? [
+    ...(isProduction ?
+      [
         // Decrease script evaluation time
         new webpack.optimize.ModuleConcatenationPlugin(),
 
@@ -103,8 +117,7 @@ const config = {
           navigateFallback: '/',
           maximumFileSizeToCacheInBytes: !isProduction ? 5242880 : 2097152,
           verbose: !isProduction,
-          runtimeCaching: [
-            {
+          runtimeCaching: [{
               // Use a 'cache-first' strategy for js or css bundles and images.
               urlPattern: /\/static\//,
               handler: 'cacheFirst'
@@ -128,25 +141,8 @@ const config = {
           ]
         }),
 
-        // Minimize all JavaScript output of chunks
-        new webpack.optimize.UglifyJsPlugin({
-          sourceMap: true,
-          compress: {
-            screw_ie8: true,
-            warnings: false,
-            unused: true,
-            dead_code: true
-          },
-          mangle: {
-            screw_ie8: true
-          },
-          output: {
-            comments: false,
-            screw_ie8: true
-          }
-        })
-      ]
-      : [
+      ] :
+      [
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.NamedModulesPlugin()
       ]
@@ -225,11 +221,13 @@ const config = {
                     camelCase: 'dashes',
                     // CSS Modules https://github.com/css-modules/css-modules
                     modules: true,
-                    localIdentName: !isProduction
-                      ? '[name]-[local]-[hash:base64:5]'
-                      : '[hash:base64:5]',
+                    localIdentName: !isProduction ?
+                      '[name]-[local]-[hash:base64:5]' :
+                      '[hash:base64:5]',
                     minimize: isProduction,
-                    discardComments: { removeAll: true }
+                    discardComments: {
+                      removeAll: true
+                    }
                   }
                 },
                 // Apply PostCSS plugins including autoprefixer
